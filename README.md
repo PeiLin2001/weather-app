@@ -1,3 +1,112 @@
+# Weather App｜Taiwan Township Weather Forecast
+
+A practice project built with Angular that consumes Taiwan's Central Weather Administration (CWA) Open Data API to display real-time weather information for townships across Taiwan.
+
+## Features
+
+- Switch between townships/districts to view local weather
+- Displays temperature, relative humidity, wind speed, and probability of precipitation
+- Weather icon mapped from the weather code
+- Loading / error state feedback
+- Semantic HTML structure
+
+## Tech Stack
+
+| Category | Technology |
+|---|---|
+| Framework | Angular (Standalone Components) |
+| Language | TypeScript |
+| Styling | SCSS |
+| HTTP | `@angular/common/http` (HttpClient) |
+| Data Source | [CWA Open Data Platform](https://opendata.cwa.gov.tw/) (F-D0047-065 Township Forecast) |
+
+## Project Structure
+
+```
+weather-app/
+├── src/
+│   ├── environments/
+│   │   ├── environment.ts          # Dev environment variables (API key, API URL)
+│   │   └── environment.prod.ts     # Production environment variables
+│   ├── app/
+│   │   ├── @APIservice/
+│   │   │   ├── httpclient.service.ts   # Generic HTTP wrapper
+│   │   │   └── weather.service.ts      # CWA API-specific service
+│   │   ├── @components/
+│   │   │   └── weather2/
+│   │   │       ├── weather2.component.ts
+│   │   │       ├── weather2.component.html
+│   │   │       └── weather2.component.scss
+│   │   ├── models/
+│   │   │   └── weather.model.ts    # Type definitions for API responses
+│   │   ├── app.component.ts
+│   │   ├── app.config.ts
+│   │   └── app.routes.ts
+│   ├── index.html
+│   ├── main.ts
+│   └── styles.scss
+└── README.md
+```
+
+## Getting Started
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Set up your API key
+
+Register at the [CWA Open Data Platform](https://opendata.cwa.gov.tw/) to get an authorization key, then fill it in:
+
+```ts
+// src/environments/environment.ts
+export const environment = {
+  production: false,
+  cwaApiKey: 'YOUR_CWA_API_KEY',
+  cwaForecastUrl: 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-065'
+};
+```
+
+### 3. Run the dev server
+
+```bash
+ng serve
+```
+
+Then open `http://localhost:4200/` in your browser.
+
+## API Reference
+
+This project calls the CWA "Township Forecast" dataset:
+
+```
+GET https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-065
+    ?Authorization={API_KEY}
+    &limit={number of results}
+```
+
+The response shape is typed in [`src/app/models/weather.model.ts`](./src/app/models/weather.model.ts).
+
+## Development Notes / Refactor Log
+
+This project started as an early piece of work and later went through a refactoring pass. Changes included:
+
+- **Removed the hardcoded API key**, moved to `environment.ts`
+- Added proper type definitions, replacing the previous heavy use of `any`
+- Introduced a dedicated `WeatherService`, moving API-calling logic out of the component
+- Standardized variable and method naming to camelCase
+- Added loading / error state UI feedback
+- Replaced a long chain of `if`/`includes` checks with a rule-based lookup table for weather icons
+- Added a default route redirect and a 404 fallback
+- Fixed several actual SCSS bugs (an `@font-face` misuse that meant the custom font never actually loaded, and an invalid `opacity()` call on `background-color`)
+- Made the HTML structure semantic
+
+## License
+
+For personal learning and portfolio purposes only.
+
 # Weather App｜台灣鄉鎮天氣預報
 
 使用 Angular 串接中央氣象署開放資料平台（CWA OpenData）API，顯示台灣各鄉鎮即時天氣資訊的練習專案。
