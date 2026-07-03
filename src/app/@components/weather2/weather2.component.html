@@ -1,0 +1,130 @@
+<main class="all">
+
+  <!-- 頁面上方標題與地區選單 -->
+  <header class="bar">
+
+    <div class="title">
+      <img src="/img/cloudy-day (1).png" alt="Weather Today icon">
+      <h1>Weather Today!</h1>
+    </div>
+
+    <!-- 地區選擇按鈕 -->
+    <nav class="Buttons" aria-label="地區選擇">
+      @for (district of allDistricts; track district.LocationName) {
+        <button
+          type="button"
+          (click)="selectDistrict(district)"
+          [class.active]="selectedDistrictName === district.LocationName">
+          {{ district.LocationName }}
+        </button>
+      }
+    </nav>
+
+  </header>
+
+  <!-- Loading -->
+  @if (isLoading) {
+    <section class="StatusMessage" role="status" aria-live="polite">
+      <p>資料讀取中...</p>
+    </section>
+  }
+
+  <!-- 錯誤狀態 -->
+  @if (!isLoading && errorMessage) {
+    <section class="StatusMessage" role="alert">
+      <p>{{ errorMessage }}</p>
+    </section>
+  }
+
+  <!-- 主要內容 -->
+  @if (!isLoading && !errorMessage) {
+    <section class="ContentLayout" aria-label="目前天氣資訊">
+
+      <header class="TimeAndZone">
+        <div class="Time">
+          <p>
+            現在時間:
+            <time>{{ nowTime | date: 'HH:mm' }}</time>
+          </p>
+        </div>
+
+        <div class="Zone">
+          <p>{{ areaName }}</p>
+        </div>
+      </header>
+
+      <!-- 氣象資訊 -->
+      <article class="information">
+
+        <section class="left" aria-label="氣象數值">
+
+          @for (weatherDetail of currentWeather; track $index) {
+            <section class="lefttop" aria-label="目前溫度">
+              @if (weatherDetail?.Time?.[0]?.ElementValue?.[0]?.Temperature) {
+                <div class="Temperature">
+                  <p class="Temp">
+                    {{ weatherDetail.Time[0].ElementValue[0].Temperature }}
+                  </p>
+                  <p class="celsius">℃</p>
+                </div>
+              }
+            </section>
+          }
+
+          @for (weatherDetail of currentWeather; track $index) {
+            <section class="detail" aria-label="詳細天氣資料">
+
+              <dl>
+                @if (weatherDetail?.Time?.[0]?.ElementValue?.[0]?.RelativeHumidity) {
+                  <div class="stretch">
+                    <dt class="point">相對溼度</dt>
+                    <dd class="value">
+                      {{ weatherDetail.Time[0].ElementValue[0].RelativeHumidity }}%
+                    </dd>
+                  </div>
+                }
+
+                @if (weatherDetail?.Time?.[0]?.ElementValue?.[0]?.WindSpeed) {
+                  <div class="stretch">
+                    <dt class="point">風速</dt>
+                    <dd class="value">
+                      {{ weatherDetail.Time[0].ElementValue[0].WindSpeed }}m/s
+                    </dd>
+                  </div>
+                }
+
+                @if (weatherDetail?.Time?.[0]?.ElementValue?.[0]?.ProbabilityOfPrecipitation) {
+                  <div class="stretch">
+                    <dt class="point">降雨率</dt>
+                    <dd class="value">
+                      {{ weatherDetail.Time[0].ElementValue[0].ProbabilityOfPrecipitation }}%
+                    </dd>
+                  </div>
+                }
+              </dl>
+
+            </section>
+          }
+
+        </section>
+
+        @for (weatherDetail of currentWeather; track $index) {
+          <figure class="illust">
+            @if (weatherDetail?.Time?.[0]?.ElementValue?.[0]?.Weather) {
+              <figcaption class="weatherdescription">
+                {{ weatherDetail.Time[0].ElementValue[0]?.Weather }}
+              </figcaption>
+
+              <img
+                [src]="getWeatherIcon(+weatherDetail.Time[0].ElementValue[0].WeatherCode!)"
+                [alt]="weatherDetail.Time[0].ElementValue[0]?.Weather">
+            }
+          </figure>
+        }
+
+      </article>
+
+    </section>
+  }
+
+</main>
