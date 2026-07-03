@@ -1,6 +1,6 @@
-# Weather App｜Taiwan Township Weather Forecast
+# Weather App｜Kaohsiung Township Weather Forecast
 
-A practice project built with Angular that consumes Taiwan's Central Weather Administration (CWA) Open Data API to display real-time weather information for townships across Taiwan.
+A practice project built with Angular that consumes Taiwan's Central Weather Administration (CWA) Open Data API to display real-time weather information for townships across Kaohsiung, Taiwan.
 
 ## Features
 
@@ -100,16 +100,16 @@ This project started as an early piece of work and later went through a refactor
 - Added loading / error state UI feedback
 - Replaced a long chain of `if`/`includes` checks with a rule-based lookup table for weather icons
 - Added a default route redirect and a 404 fallback
-- Fixed several actual SCSS bugs (an `@font-face` misuse that meant the custom font never actually loaded, and an invalid `opacity()` call on `background-color`)
+- Fixed several actual SCSS bugs
 - Made the HTML structure semantic
 
 ## License
 
 For personal learning and portfolio purposes only.
 
-# Weather App｜台灣鄉鎮天氣預報
+# Weather App｜高雄鄉鎮天氣預報
 
-使用 Angular 串接中央氣象署開放資料平台（CWA OpenData）API，顯示台灣各鄉鎮即時天氣資訊的練習專案。
+使用 Angular 串接中央氣象署開放資料平台（CWA OpenData）API，顯示高雄各鄉鎮即時天氣資訊的練習專案。
 
 ## 功能
 
