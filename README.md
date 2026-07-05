@@ -56,20 +56,7 @@ weather-app/
 npm install
 ```
 
-### 2. Set up your API key
-
-Register at the [CWA Open Data Platform](https://opendata.cwa.gov.tw/) to get an authorization key, then fill it in:
-
-```ts
-// src/environments/environment.ts
-export const environment = {
-  production: false,
-  cwaApiKey: 'YOUR_CWA_API_KEY',
-  cwaForecastUrl: 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-065'
-};
-```
-
-### 3. Run the dev server
+### 2. Run the dev server
 
 ```bash
 ng serve
@@ -165,20 +152,7 @@ weather-app/
 npm install
 ```
 
-### 2. 設定 API Key
-
-到 [中央氣象署開放資料平台](https://opendata.cwa.gov.tw/) 註冊並取得授權碼，填入：
-
-```ts
-// src/environments/environment.ts
-export const environment = {
-  production: false,
-  cwaApiKey: 'YOUR_CWA_API_KEY',
-  cwaForecastUrl: 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-065'
-};
-```
-
-### 3. 啟動開發伺服器
+### 2. 啟動開發伺服器
 
 ```bash
 ng serve
